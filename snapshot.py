@@ -8,6 +8,9 @@ arg = cgi.FieldStorage()
 ip = arg.getvalue("ip")
 canal = arg.getvalue("canal")
 
+#ip="191.255.154.159"
+#canal="1"
+
 request = urllib2.Request("http://"+ip+":8077/cgi-bin/snapshot.cgi?channel="+canal)
 base64string = base64.encodestring('%s:%s' % ('demo', 'demo')).replace('\n', '')
 request.add_header("Authorization", "Basic %s" % base64string)
