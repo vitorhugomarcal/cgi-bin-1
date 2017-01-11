@@ -24,7 +24,8 @@ while True:
 		with open(name) as f:
 			content = f.read().splitlines()
 			for w in content:
-				reg = " C=0 " + w.replace("\r\n","") + " 3 3 3 3 1 2 3 4\r"
+				#reg = " C=0 " + w.replace("\r\n","") + " 3 3 3 3 1 2 3 4\r"
+				reg = w.replace("\r\n","") + "\r"
 				print " Inserindo registro na placa: ",reg
 				tcp.send(reg)
 				time.sleep(0.5)

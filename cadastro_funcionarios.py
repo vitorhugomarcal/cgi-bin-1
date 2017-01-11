@@ -43,14 +43,13 @@ try:
 			arq = "fila/"+ str(r[0])  +"-fila-" + str(random.randint(1,999999)) + str(datetime.datetime.now()) + ".txt"
 			#print "Arquivo: " + arq + " criado com sucesso!<br>"
 			f=open(arq,"w")
-			f.write(cracha)
+			f.write(" C=0 " + cracha + " 3 3 3 3 1 2 3 4")
 			f.close()
 	else:
 		arq = "fila/" + str(controladora) + "-fila-" + str(random.randint(1,999999)) + str(datetime.datetime.now()) + ".txt"
-		#print "Arquivo: " + arq + " criado com sucesso!<br>"
-                f=open(arq,"w")
-                f.write(cracha)
-                f.close()
+		f=open(arq,"w")
+		f.write(" C=0 " + cracha + " 3 3 3 3 1 2 3 4")
+		f.close()
 
 except:
 	print "Erro gravando arquivo: ", arq
