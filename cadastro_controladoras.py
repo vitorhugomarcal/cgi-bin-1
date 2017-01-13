@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import cgi, cgitb, MySQLdb, datetime
+import cgi, MySQLdb, datetime
 
 print "Content-type:text/html\r\n\r\n"
 print "<html>"
