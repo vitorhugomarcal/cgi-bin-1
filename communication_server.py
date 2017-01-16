@@ -48,25 +48,49 @@ while True:
 				l=i.replace("\x03\x20M=1 R OK","")
 				l=l.replace("\x02","")
 				l=l.replace("\x03","")
+				leitor = l[8:9]
+				print "Esse e o l full: "+l
 				if l[1:6] == "RD#01":
 					print "IF ",l
-					sql = "insert into log select " + l[11:23] + ",'" + l[25:27] + "','"+ ip +"', now()"
-					#print sql
+					
+					#####Tratando o numero do leitor "Vazio = 1", "X = 2", "3 e 4 ja recebem o numero 3 ou 4 nao precisa tratar"
+					if (leitor==" "):
+						leitor=1
+					elif (leitor=="X"):
+						leitor=2
+					#####Fim do tratamento dos leitores
+
+					sql = "insert into log select " + l[11:23] + ",'" + l[25:27] + "','"+ ip +"',"+str(leitor)+", now()"
 					cursor.execute(sql)
 					db.commit()
 				elif l[19:24] == "RD#01":
 					print "ELSEIF----> ",l[29:41]
+					
+
 					try:
 						if "ALARM" in l[29:41]:
-							print "**** ENTROU NA ROTINA DE ALARME"
-							sql = "insert into log select 0,'ALARME','"+ ip  +"', now()"
-							#print sql
+							print "**** ENTROU NA ROTINA DE ALARME IDENTIFICANDO OUTPUT ACIONADO"
+
+							output = l[27:29]
+			
+							sql = "insert into log select 0,'ALARME','"+ ip +"',"+str(output)+", now()"
+							print sql
 							cursor.execute(sql)
 							db.commit()
+						
 						else:
 							print "**** ENTROU NA ROTINA NORMAL SEM ALARME"
-							sql = "insert into log select " + l[29:41] + ",'OK','"+ ip  +"', now()"
-							#print sql
+							
+							#####Tratando o numero do leitor "Vazio = 1", "X = 2", "3 e 4 ja recebem o numero 3 ou 4 nao precisa tratar"
+							leitor = l[26:27]
+					
+							if (leitor==" "):
+								leitor=1
+							elif (leitor=="X"):
+								leitor=2
+							#####Fim do tratamento dos leitores
+
+							sql = "insert into log select " + l[29:41] + ",'OK','"+ ip +"',"+str(leitor)+", now()"
 							cursor.execute(sql)
 							db.commit()
 					except:
