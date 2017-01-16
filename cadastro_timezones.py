@@ -26,6 +26,6 @@ cursor.close()
 db.close()
 
 
-print "<center><br><br><div style='width:50%;' class='panel panel-primary'><div class='panel-heading'>Sucesso!</div><br>Timezone inserido com sucesso no Bando de Dados! <br>"
+print "<center><br><br><div style='width:50%;' class='panel panel-primary'><div class='panel-heading'>Sucesso!</div><br>Timezone inserido com sucesso no Banco de Dados! <br>"
 print "<nav><ul class='pager'><li class='previous'><a href='../cadastro_timezones.php'><span>&larr;</span> Voltar</a></li></ul></nav></div></center>"
 print "</html>"

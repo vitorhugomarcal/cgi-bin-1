@@ -2,13 +2,13 @@
 import cgi, MySQLdb, time, datetime, random
 
 print "Content-type:text/html\r\n\r\n"
-print "<html>"
-print "<head>"
+#print "<html>"
+#print "<head>"
 
-print "<link rel='stylesheet' href='../css/bootstrap.min.css'>"
-print "<script src='../js/bootstrap.min.js'></script>"
+##print "<link rel='stylesheet' href='../css/bootstrap.min.css'>"
+#print "<script src='../js/bootstrap.min.js'></script>"
 
-print "</head>"
+#print "</head>"
 
 arg = cgi.FieldStorage()
 cracha = arg.getvalue("d")
@@ -35,9 +35,9 @@ try:
 		f.close()
 
 
-	print "<div class='alert alert-success' style='width: 90%' role='alert'>"
-	print "<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> Registro Deletado com Sucesso !"
-	print "</div>"
+#	print "<div class='alert alert-success' style='width: 90%' role='alert'>"
+#	print "<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> Registro Deletado com Sucesso !"
+#	print "</div>"
 
 except:
 	print "Erro gravando arquivo: ", arq
@@ -45,5 +45,6 @@ except:
 cursor.close()
 db.close()
 
-print "</html>"
+print "<div style='padding: 10px; border-radius: 5px; border:1px solid rgb(208,233,198); background-color: rgb(223,240,216); color: rgb(69,118,74);'><b>Sucesso!!!</b> Registro deletado da Base de Dados!</div>"
+#print "</html>"
 

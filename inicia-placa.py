@@ -75,12 +75,12 @@ ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%
 #print "Etapa 1/4..."
 ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Etapa 1/4..."}))
 
-tcp.send(" L=1 1 06:50-18:00 1 2 3 4 5;63\r")
+tcp.send(" L=1 1 06:50-18:00 1 2 3 4 5 6 7 0;0\r")
 time.sleep(1)
 
 #print "Etapa 2/4..."
 ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Etapa 2/4..."}))
-tcp.send(" L=1 2 00:00-23:59 1 2 3 4 5;62\r")
+tcp.send(" L=1 2 00:00-23:59 1 2 3 4 5 6 7 0;0\r")
 time.sleep(1)
 
 #print "Etapa 3/4..."
