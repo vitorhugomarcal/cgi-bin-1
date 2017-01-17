@@ -25,12 +25,12 @@ db = MySQLdb.connect("127.0.0.1","root","161879","wfp")
 cursor = db.cursor()
 
 if (nome==""):
-	print "Entrei no IF"
+	#print "Entrei no IF"
 	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "',now()) on duplicate key update leitor_baixa='" + baixa + "',datref=now()"
 else:
-	print "Entrei no else"
+	#print "Entrei no else"
 	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, nome, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "','" + nome + "',now()) on duplicate key update leitor_baixa='" + baixa + "',nome='" + nome + "',datref=now()"
-print sql
+#print sql
 cursor.execute(sql)
 db.commit()
 cursor.close()

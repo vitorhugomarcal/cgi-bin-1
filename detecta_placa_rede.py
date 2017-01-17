@@ -14,8 +14,9 @@ print "<script>function showFoto(strIP) {if (strIP == '') {document.getElementBy
 
 print "</head>"
 print "<center>"
-print "<h1>Scanner de Placas na rede</h1>"
-print "<pre>"
+print "<h1><font color='white'>Scanner de Controladoras</font></h1>"
+
+print "<body style='background-color: rgb(50, 50, 50); color:#ccc'>"
 
 arg = cgi.FieldStorage()
 iprange = arg.getvalue("iprange")
@@ -23,7 +24,7 @@ iprange = arg.getvalue("iprange")
 ipini = 243
 ipfim = 246
 
-print "Range de IP: " + iprange + "." + str(ipini) + " ate " + iprange + "." + str(ipfim) + "<br>"
+print "Range de IP: " + iprange + "." + str(ipini) + " ate " + iprange + "." + str(ipfim) + "<br><br>"
 
 for c in range(ipini,ipfim):
 	target = str(iprange) +  "." +  str(c)
@@ -34,8 +35,8 @@ for c in range(ipini,ipfim):
 		print "Placa encontrada: " + target + " <a href='#' onclick=showFoto('"+target+"')>Efetuar Carga Inicial</a><br>"
 		sock.close()
 
-print "</pre></center>"
-print "<object type='text/html' data='../web.html' style='width: 100%; height: 100%; border: 0px'></iframe>"
+print "</center><br>"
+print "<object type='text/html' data='../web.html' style='width: 100%; height: 100%; border: 0px'></object>"
 print "<div id='txtlog'></div>"
 
 print "</html>"

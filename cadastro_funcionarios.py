@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import cgi, cgitb, MySQLdb, socket, time, datetime, random
+import cgi, MySQLdb, socket, time, datetime, random
 
 print "Content-type:text/html\r\n\r\n"
 print "<html>"
@@ -33,11 +33,13 @@ db = MySQLdb.connect("127.0.0.1","root","161879","wfp")
 cursor = db.cursor()
 
 sql = "insert into cadastro_funcionarios select " + cracha + "," + id_func + ",'" + nome + "','" + email + "','" + rg + "','" + cpf + "','" + ramal + "','" + area + "'," + timezone + ",'" + ativo  + "',now()"
+#print sql
 cursor.execute(sql)
 db.commit()
 
 #try:
-if (area=="Todas"):
+#O IF ABAIXO FOI DESABILITADO DEIXOU DE EXISTIR TODAS COMO HARDCODE AGORA EXISTE UMA AREA MESMO
+if (area=="******Todasxpto********"):
 	sql = "select ip from controladora"
 	cursor.execute(sql)
 	resultado = cursor.fetchall()
@@ -51,38 +53,31 @@ else:
 	#print sql
 	cursor.execute(sql)
 	resultado = cursor.fetchall()
+	t=" "+str(timezone)
 	for r in resultado:
 		if (str(r[1])=="1"):
-			t1 = " "+timezone
 			l1 = " 1"
 		else:
-			t1 = "" 
-			l1 = ""
+			l1 = " "
 
 		if (str(r[2])=="2"):
-			t2 = " "+timezone
 			l2 = " 2"
 		else:
-			t2 = "" 
-			l2 = ""
+			l2 = " "
 
 		if (str(r[3])=="3"):
-			t3 = " "+timezone
 			l3 = " 3"
 		else:
-			t3 = "" 
-			l3 = ""
+			l3 = " "
 
 		if (str(r[4])=="4"):
-			t4 = " "+timezone
 			l4 = " 4"
 		else:
-			t4 = "" 
-			l4 = ""
+			l4 = " "
 
 		arq = "fila/" + str(r[0]) + "-fila-" + str(random.randint(1,999999)) + str(datetime.datetime.now()) + ".txt"
 		f=open(arq,"w")
-		f.write(" C=0 "+cracha+t1+t2+t3+t4+l1+l2+l3+l4)
+		f.write(" C=0 "+cracha+t+t+t+t+l1+l2+l3+l4)
 		f.close()
 
 #except:
