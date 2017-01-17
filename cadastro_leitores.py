@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import cgi, cgitb, MySQLdb, datetime
+import cgi, MySQLdb, datetime
 
 print "Content-type:text/html\r\n\r\n"
 print "<html>"
@@ -14,6 +14,7 @@ print "</head>"
 arg = cgi.FieldStorage()
 id_controladora = arg.getvalue("controladora")
 num_leitor = arg.getvalue("leitor")
+baixa = arg.getvalue("baixa")
 nome = arg.getvalue("nome")
 
 #print "ID Controladora: " + id_controladora + "<br>"
@@ -22,8 +23,14 @@ nome = arg.getvalue("nome")
 
 db = MySQLdb.connect("127.0.0.1","root","161879","wfp")
 cursor = db.cursor()
-sql = "insert into leitores (id_controladora, num_leitor, nome, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + nome + "',now()) on duplicate key update nome='" + nome + "',datref=now()"
-#print sql
+
+if (nome==""):
+	print "Entrei no IF"
+	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "',now()) on duplicate key update leitor_baixa='" + baixa + "',datref=now()"
+else:
+	print "Entrei no else"
+	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, nome, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "','" + nome + "',now()) on duplicate key update leitor_baixa='" + baixa + "',nome='" + nome + "',datref=now()"
+print sql
 cursor.execute(sql)
 db.commit()
 cursor.close()
