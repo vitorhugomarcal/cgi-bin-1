@@ -22,4 +22,4 @@ f=open("/var/www/html/fotos/"+nomarq,"w")
 f.write(result.read())
 f.close()
 
-print nomarq+"<br><center><img src='../fotos/"+nomarq+"'></center>"
+print "<center><font color='white'> "+nomarq+"</font><br><img src='../fotos/"+nomarq+"'></center><br>"
