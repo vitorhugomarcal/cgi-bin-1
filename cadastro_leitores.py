@@ -15,6 +15,7 @@ arg = cgi.FieldStorage()
 id_controladora = arg.getvalue("controladora")
 num_leitor = arg.getvalue("leitor")
 baixa = arg.getvalue("baixa")
+cadastro = arg.getvalue("cadastro")
 nome = arg.getvalue("nome")
 
 #print "ID Controladora: " + id_controladora + "<br>"
@@ -26,10 +27,10 @@ cursor = db.cursor()
 
 if (nome==""):
 	#print "Entrei no IF"
-	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "',now()) on duplicate key update leitor_baixa='" + baixa + "',datref=now()"
+	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, leitor_cadastro, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "','" + cadastro + "',now()) on duplicate key update leitor_baixa='" + baixa + "', leitor_cadastro='" + cadastro + "',datref=now()"
 else:
 	#print "Entrei no else"
-	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, nome, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "','" + nome + "',now()) on duplicate key update leitor_baixa='" + baixa + "',nome='" + nome + "',datref=now()"
+	sql = "insert into leitores (id_controladora, num_leitor, leitor_baixa, leitor_cadastro, nome, datref) values ('" + id_controladora + "'," + num_leitor + ",'" + baixa + "','" + cadastro + "','" + nome + "',now()) on duplicate key update leitor_baixa='" + baixa + "', leitor_cadastro='" + cadastro + "',nome='" + nome + "',datref=now()"
 #print sql
 cursor.execute(sql)
 db.commit()
