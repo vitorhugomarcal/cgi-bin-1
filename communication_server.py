@@ -85,9 +85,11 @@ while True:
 					#####Fim do tratamento dos leitores
 					ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Communication Server ("+ip+"): Cracha: "+ l[11:23] + " Status:<font style='color:red'> Acesso Negado</font> - Leitor: #"+str(leitor)}))
 					sql = "insert into log select " + l[11:23] + ",'" + l[25:27] + "','"+ ip +"',"+str(leitor)+", now()"
+					
 					try:
 						cursor.execute(sql)
 						db.commit()
+						ws.send(json.dumps({"text":"Event View Atualizado..."}))
 					except:
 						print "Erro gravando arquivo para cracha negado"
 
@@ -164,11 +166,12 @@ while True:
 							
 							####ROTINA DE CRACHA OK CADASTRADO
 							else:
-								
+										
 								###SE ESTIVER OK E PASSAR NO LEITOR DE BAIXA/URNA
 								if leitor in lista_leitores_baixa:
 									print "Cracha passou no leitor de Baixa/Urna baixando do Sistema..."
 									CrachaDel = int(l[29:41])
+									ws.send(json.dumps({"text":"Event View Atualizado..."}))
 									ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Communication Server ("+ip+"): Cracha: "+ str(CrachaDel) + " <font style='color:rgb(49,112,143)'> Baixado com Sucesso</font> - Leitor: #"+str(leitor)}))
 									
 									#DELETANDO DA PLACA
@@ -187,10 +190,12 @@ while True:
 
 								###SE ESTIVER OK E NAOOOO PASSAR NO LEITOR DE BAIXA/URNA
 								else:
+									
 									ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Communication Server ("+ip+"): Cracha: "+ l[29:41] + " Status:<font style='color:green'> Acesso Permitido</font> - Leitor: #"+str(leitor)}))
 									sql = "insert into log select " + l[29:41] + ",'OK','"+ ip +"',"+str(leitor)+", now()"
 									cursor.execute(sql)
 									db.commit()
+									ws.send(json.dumps({"text":"Event View Atualizado..."}))
 					except:
 						print "Erro inserindo registro numerico, continuando..."
 				

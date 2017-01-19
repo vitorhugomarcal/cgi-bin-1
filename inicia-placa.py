@@ -23,11 +23,15 @@ dest = (ip,3001)
 tcp.connect(dest)
 
 
-#tcp.send(" I=1 N\r")
-#tcp.send(" I=1 0\r")
-#time.sleep(1)
-#ws.send(json.dumps({"text":tcp.recv(1024)}))
+tcp.send(" I=1 N\r")
+time.sleep(1)
+tcp.send(" I=1 0\r")
+time.sleep(1)
 
+try:
+	ws.send(json.dumps({"text":"UnBuffer: "+tcp.recv(1024)}))
+except:
+	print "Problemas com UnBuffer"
 
 ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Iniciando a Carga do Painel"}))
 
@@ -38,7 +42,7 @@ cursor.execute(sql)
 resultado = cursor.fetchall()
 for r in resultado:
 	ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Comando Inicial "+str(r[0])}))
-	tcp.send(" I=0 " + str(r[0]) + "\r")
+	tcp.send(" I=1 " + str(r[0]) + "\r")
 	time.sleep(0.5)
 	ws.send(json.dumps({"text":tcp.recv(1024)}))
 
@@ -52,7 +56,7 @@ cursor.execute(sql)
 resultado = cursor.fetchall()
 for r in resultado:
 	ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Formato do Cartao "+str(r[0])+ " - "+str(r[1])}))
-	tcp.send(" F=0 " + str(r[0]) + " " + str(r[1]) + "\r")
+	tcp.send(" F=1 " + str(r[0]) + " " + str(r[1]) + "\r")
 	time.sleep(0.5)
 	ws.send(json.dumps({"text":tcp.recv(1024)}))
 
@@ -66,7 +70,7 @@ cursor.execute(sql)
 resultado = cursor.fetchall()
 for r in resultado:
 	ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Timezones "+str(r[0])+ " - "+str(r[1])}))
-	tcp.send(" L=0 " + str(r[0]) + " " + str(r[1]) + " 1 2 3 4 5 6 7 0;0\r")
+	tcp.send(" L=1 " + str(r[0]) + " " + str(r[1]) + " 1 2 3 4 5 6 7 0;0\r")
 	time.sleep(0.5)
 	ws.send(json.dumps({"text":tcp.recv(1024)}))
 
@@ -74,13 +78,13 @@ for r in resultado:
 
 ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Etapa 4/6 - Data Atual..."}))
 ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Data Atual: "+str(datetime.datetime.now().month)+"/"+str(datetime.datetime.now().day)+ " " + str(datetime.datetime.today().weekday()+1) + " " + str(datetime.datetime.now().year)}))
-tcp.send(" D=0 "+str(datetime.datetime.now().month)+"/"+str(datetime.datetime.now().day)+ " " + str(datetime.datetime.today().weekday()+1) + " " + str(datetime.datetime.now().year) +"\r")
+tcp.send(" D=1 "+str(datetime.datetime.now().month)+"/"+str(datetime.datetime.now().day)+ " " + str(datetime.datetime.today().weekday()+1) + " " + str(datetime.datetime.now().year) +"\r")
 time.sleep(0.5)
 ws.send(json.dumps({"text":tcp.recv(1024)}))
 
 ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Etapa 5/6 - Hora Atual..."}))
 ws.send(json.dumps({"text":"<b>" + str(datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'))+"</b> - Hora Atual: "+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)}))
-tcp.send(" T=0 "+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+"\r")
+tcp.send(" T=1 "+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+"\r")
 time.sleep(0.5)
 ws.send(json.dumps({"text":tcp.recv(1024)}))
 
