@@ -32,7 +32,8 @@ timezone = arg.getvalue("timezone")
 db = MySQLdb.connect("127.0.0.1","root","161879","wfp")
 cursor = db.cursor()
 
-sql = "insert into cadastro_funcionarios select " + cracha + "," + id_func + ",'" + nome + "','" + email + "','" + rg + "','" + cpf + "','" + ramal + "','" + area + "'," + timezone + ",'" + ativo  + "',now()"
+sql = "insert into cadastro_funcionarios (cracha, id, nome, email, rg, cpf, ramal, nome_area, id_timezones, ativo, datref) values (" + cracha + "," + id_func + ",'" + nome + "','" + email + "','" + rg + "','" + cpf + "','" + ramal + "','" + area + "'," + timezone + ",'" + ativo  + "',now()) on duplicate key update id=" + id_func + ", nome='" + nome + "',email='" + email + "',rg='" + rg + "',cpf='" + cpf + "',ramal='" + ramal + "',nome_area='" + area + "',id_timezones=" + timezone + ",ativo='" + ativo  + "',datref=now()"
+
 #print sql
 cursor.execute(sql)
 db.commit()
